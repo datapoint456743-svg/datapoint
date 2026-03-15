@@ -1,7 +1,7 @@
 django
 gunicorn
 pandas
-numpy
+numpy==1.26.4
 nltk
 gensim
-tensorflow-cpu
+tensorflow==2.15.0
