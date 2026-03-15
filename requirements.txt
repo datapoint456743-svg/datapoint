@@ -11,3 +11,4 @@ tensorflow-cpu==2.21.0
 Pillow==12.1.0
 joblib==1.5.3
 h5py==3.14.0
+pytesseract==0.3.10
