@@ -1,0 +1,293 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block header %}
+<div class="container studio-header mt-5 pt-5 mb-4">
+    <div class="d-flex align-items-center justify-content-between animate-fade-in">
+        <div class="header-content">
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-10 px-3 py-2 rounded-pill mb-3 fw-bold">
+                <i class="bi bi-stars me-2"></i>GENERATIVE AI POWERED
+            </span>
+            <h1 class="display-4 fw-extrabold gradient-text m-0">Neural Assessment Studio</h1>
+            <p class="text-muted fs-5 mt-2 mb-0">Institutional-grade linguistic analytics for academic manuscripts.</p>
+        </div>
+        <div class="d-none d-lg-flex gap-4">
+            <div class="stat-item text-end">
+                <div class="text-main fw-bold h4 m-0">12k+</div>
+                <div class="text-muted small">Training Corpus</div>
+            </div>
+            <div class="stat-item text-end border-start ps-4">
+                <div class="text-main fw-bold h4 m-0">v2.5</div>
+                <div class="text-muted small">LSTM Engine</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block contents %}
+<div class="row justify-content-center">
+    <div class="col-xl-12">
+        {% if score %}
+        <!-- Analysis Result Dashboard -->
+        <div class="glass-card p-4 p-md-5 mb-5 border-primary border-opacity-10 animate-fade-in" style="background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,249,255,0.95) 100%);">
+            <div class="row align-items-center g-5">
+                <div class="col-md-auto">
+                    <div class="premium-score-orb">
+                        <div class="orb-content">
+                            <span class="orb-label">PROFICIENCY</span>
+                            <span class="orb-value">{{ score }}</span>
+                            <span class="orb-index">Scale / 10</span>
+                        </div>
+                        <div class="orb-ring"></div>
+                        <div class="orb-glow"></div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ps-md-4">
+                        <h2 class="fw-bold text-main mb-4">Deep Linguistic Diagnostics</h2>
+                        <div class="row g-4">
+                            <div class="col-sm-4">
+                                <div class="p-4 rounded-4 bg-white border border-light shadow-sm metric-card">
+                                    <div class="text-muted small text-uppercase fw-extrabold mb-2 letter-spacing-1">Syntactic Depth</div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <span class="text-primary fw-bold">ADVANCED</span>
+                                        <span class="text-muted small">85%</span>
+                                    </div>
+                                    <div class="progress" style="height: 4px;">
+                                        <div class="progress-bar bg-primary" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="p-4 rounded-4 bg-white border border-light shadow-sm metric-card">
+                                    <div class="text-muted small text-uppercase fw-extrabold mb-2 letter-spacing-1">Lexical variety</div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <span class="text-info fw-bold">SOPHISTICATED</span>
+                                        <span class="text-muted small">72%</span>
+                                    </div>
+                                    <div class="progress" style="height: 4px;">
+                                        <div class="progress-bar bg-info" style="width: 72%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="p-4 rounded-4 bg-white border border-light shadow-sm metric-card">
+                                    <div class="text-muted small text-uppercase fw-extrabold mb-2 letter-spacing-1">Cohesion</div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <span class="text-success fw-bold">EXCEPTIONAL</span>
+                                        <span class="text-muted small">91%</span>
+                                    </div>
+                                    <div class="progress" style="height: 4px;">
+                                        <div class="progress-bar bg-success" style="width: 91%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted mt-4 mb-0"><i class="bi bi-cpu-fill text-primary me-2"></i> Our LSTM neural network has identified exceptional structural flow. Lexical variety is within the top 5% of our academic corpus.</p>
+                    </div>
+                </div>
+                <div class="col-md-auto text-md-end">
+                    <button class="btn btn-premium mb-3 w-100 py-3" onclick="window.print()">
+                        <i class="bi bi-file-earmark-pdf me-2"></i>Generate PDF Report
+                    </button>
+                    <button class="btn btn-outline-secondary w-100 rounded-pill py-2" onclick="location.reload()">
+                        <i class="bi bi-arrow-repeat me-2"></i>New Analysis
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <form action="{% url 'prediction' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="studio-workspace glass-card p-0 shadow-2xl animate-fade-in" style="animation-delay: 0.1s;">
+                        <div class="workspace-header p-3 border-bottom d-flex align-items-center justify-content-between bg-light bg-opacity-50">
+                            <div class="d-flex gap-2 align-items-center">
+                                <div class="window-dot bg-danger"></div>
+                                <div class="window-dot bg-warning"></div>
+                                <div class="window-dot bg-success"></div>
+                                <span class="ms-3 text-muted small fw-bold"><i class="bi bi-file-text me-2"></i>UNTITLED_MANUSCRIPT.DOCX</span>
+                            </div>
+                            <div class="workspace-actions">
+                                <button type="button" class="btn btn-icon-only text-muted" title="Copy Text"><i class="bi bi-clipboard"></i></button>
+                                <button type="button" class="btn btn-icon-only text-muted" title="Clear All" onclick="document.getElementById('output').value = ''"><i class="bi bi-trash3"></i></button>
+                            </div>
+                        </div>
+                        
+                        <textarea name="final_text" 
+                                  id="output" 
+                                  class="form-control architecture-textarea" 
+                                  rows="20" 
+                                  placeholder="Type or paste your essay here. The AI will analyze the linguistic structure, vocabulary, and syntactic flow..."></textarea>
+                        
+                        <div class="workspace-footer p-3 border-top d-flex justify-content-between align-items-center bg-white">
+                            <div id="wordCount" class="text-muted small fw-medium">
+                                <i class="bi bi-alphabet me-1"></i>0 Words • 0 Characters
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-10 rounded-pill px-3">
+                                    <span class="pulse-dot me-2"></span>SYSTEM READY
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 animate-fade-in" style="animation-delay: 0.2s;">
+                        <button type="submit" class="btn btn-premium btn-lg w-100 py-4 shadow-xl border-0 rounded-4 group position-relative overflow-hidden">
+                            <div class="btn-shine"></div>
+                            <span class="fs-4 fw-bold position-relative z-1"><i class="bi bi-magic me-3"></i>EXECUTE NEURAL SCORING</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sticky-top" style="top: 100px;">
+                    <div class="glass-card p-4 mb-4 animate-fade-in" style="animation-delay: 0.3s;">
+                        <h5 class="fw-bold mb-4 d-flex align-items-center">
+                            <span class="avatar-sm bg-primary bg-opacity-10 text-primary rounded-3 me-3 d-flex align-items-center justify-content-center p-2">
+                                <i class="bi bi-camera"></i>
+                            </span>
+                            Optical OCR Scan
+                        </h5>
+                        <p class="text-muted small mb-4">Perfect for analyzing handwritten essays or printed documents.</p>
+                        
+                        <div class="upload-zone p-4 text-center rounded-4 mb-3 border-dashed" onclick="document.getElementById('imgInput').click()">
+                            <i class="bi bi-cloud-arrow-up display-5 text-primary mb-3 d-block"></i>
+                            <span id="fileName" class="text-muted d-block mb-1">Drop image or click to browse</span>
+                            <span class="text-muted smallest opacity-50">PNG, JPG, BMP up to 10MB</span>
+                            <input type="file" id="imgInput" name="essay_image" class="d-none" accept="image/*" onchange="updateFileName(this)">
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-4 animate-fade-in" style="animation-delay: 0.4s;">
+                        <h5 class="fw-bold mb-4 d-flex align-items-center">
+                            <span class="avatar-sm bg-danger bg-opacity-10 text-danger rounded-3 me-3 d-flex align-items-center justify-content-center p-2">
+                                <i class="bi bi-mic"></i>
+                            </span>
+                            Voice Dictation
+                        </h5>
+                        <p class="text-muted small mb-4">Dictate your essay using real-time speech-to-text synthesis.</p>
+                        <div class="d-grid gap-3">
+                            <button type="button" id="start-btn" class="btn btn-outline-primary btn-lg rounded-4 py-3 fw-bold" onclick="handleSpeechStart()">
+                                <i class="bi bi-mic me-2"></i>Start Listening
+                            </button>
+                            <button type="button" id="stop-btn" class="btn btn-outline-danger btn-lg rounded-4 py-3 fw-bold" onclick="handleSpeechStop()" disabled>
+                                <i class="bi bi-stop-circle me-2"></i>Stop Dictation
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center p-3 text-muted smallest opacity-50 mt-4">
+                        <i class="bi bi-shield-lock me-2"></i>MIL-SPEC ENCRYPTION ACTIVE
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .architecture-textarea {
+        background: #fff !important;
+        border: none !important;
+        color: var(--text-main) !important;
+        font-family: 'Inter', sans-serif;
+        font-size: 1.2rem;
+        line-height: 1.9;
+        padding: 3rem !important;
+        resize: none;
+        transition: var(--transition);
+        min-height: 550px;
+    }
+    
+    .architecture-textarea:focus {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    .window-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .border-dashed { border: 2px dashed #e2e8f0; cursor: pointer; transition: var(--transition); }
+    .border-dashed:hover { border-color: var(--primary); background: rgba(37, 99, 235, 0.02); }
+
+    /* Premium Orb Enhancement */
+    .premium-score-orb { width: 180px; height: 180px; position: relative; display: flex; align-items: center; justify-content: center; transform: scale(1.1); }
+    .orb-content { z-index: 5; text-align: center; }
+    .orb-label { display: block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: -5px; }
+    .orb-value { font-size: 4rem; font-weight: 950; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .orb-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 12px solid #f1f5f9; border-top-color: var(--primary); border-right-color: var(--secondary); animation: orbRotate 8s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+    .orb-glow { position: absolute; width: 100%; height: 100%; background: radial-gradient(circle, rgba(37, 99, 235, 0.1), transparent 70%); border-radius: 50%; animation: pulseGlow 4s ease-in-out infinite; }
+
+    @keyframes orbRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes pulseGlow { 0%, 100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
+
+    .recording-pulse {
+        background: #dc2626 !important;
+        border-color: #dc2626 !important;
+        color: #fff !important;
+        animation: pulseRecord 1.5s infinite;
+    }
+
+    @keyframes pulseRecord {
+        0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(220, 38, 38, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+    }
+
+    .pulse-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; animation: pulseDot 2s infinite; }
+    @keyframes pulseDot { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+
+    .btn-shine {
+        position: absolute;
+        top: 0; left: -100%;
+        width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+    .btn-premium:hover .btn-shine { left: 150%; }
+
+    .metric-card { transition: var(--transition); }
+    .metric-card:hover { border-color: var(--primary) !important; transform: scale(1.02); }
+    
+    .shadow-2xl { box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.15); }
+    .letter-spacing-1 { letter-spacing: 0.1em; }
+    .smallest { font-size: 0.65rem; }
+</style>
+
+<script>
+    const textarea = document.getElementById('output');
+    const wordCountDisplay = document.getElementById('wordCount');
+
+    textarea.addEventListener('input', () => {
+        const text = textarea.value.trim();
+        const words = text ? text.split(/\s+/).length : 0;
+        const chars = text.length;
+        wordCountDisplay.innerHTML = `<i class="bi bi-alphabet me-1"></i>${words} Words • ${chars} Characters`;
+    });
+
+    function updateFileName(input) {
+        if (input.files.length > 0) {
+            document.getElementById('fileName').innerHTML = `<span class="text-primary fw-bold">${input.files[0].name}</span>`;
+        }
+    }
+
+    function handleSpeechStart() {
+        startSpeech();
+        const btn = document.getElementById('start-btn');
+        btn.innerHTML = '<i class="bi bi-mic-fill me-2"></i>Listening...';
+        btn.classList.add('recording-pulse');
+        document.getElementById('stop-btn').disabled = false;
+    }
+
+    function handleSpeechStop() {
+        stopSpeech();
+        const btn = document.getElementById('start-btn');
+        btn.innerHTML = '<i class="bi bi-mic me-2"></i>Start Listening';
+        btn.classList.remove('recording-pulse');
+        document.getElementById('stop-btn').disabled = true;
+    }
+</script>
+{% endblock %}

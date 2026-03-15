@@ -1,0 +1,43 @@
+{% extends 'users/userbase.html' %}
+{% block contents %}
+{% load static %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="glass-card p-5 animate-fade-in">
+            <h3 class="mb-5 text-center gradient-text">
+                <i class="bi bi-cpu-fill me-2"></i>Model Performance Metrics
+            </h3>
+            
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="py-3 px-4 text-muted small text-uppercase fw-bold">Metric</th>
+                            <th class="py-3 px-4 text-center text-muted small text-uppercase fw-bold">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-3 px-4 font-weight-bold"><i class="bi bi-bullseye me-2 text-primary"></i>Mean Absolute Error (MAE)</td>
+                            <td class="py-3 px-4 text-center font-monospace">{{ MAE }}</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 font-weight-bold"><i class="bi bi-rulers me-2 text-primary"></i>Mean Squared Error (MSE)</td>
+                            <td class="py-3 px-4 text-center font-monospace">{{ MSE }}</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 px-4 font-weight-bold"><i class="bi bi-graph-up me-2 text-primary"></i>Root Mean Squared Error (RMSE)</td>
+                            <td class="py-3 px-4 text-center font-monospace">{{ RMSE }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="alert alert-primary bg-opacity-5 border-0 mt-4 text-muted small" role="alert">
+                <i class="bi bi-info-circle-fill me-2 text-primary"></i> Lower values indicate better model performance and higher scoring accuracy.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

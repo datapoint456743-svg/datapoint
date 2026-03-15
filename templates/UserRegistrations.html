@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+<section class="hero-gradient min-vh-100 d-flex align-items-center">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 animate-fade-in">
+                <div class="glass-card p-4 p-md-5">
+                    <div class="text-center mb-5">
+                        <div class="d-inline-block bg-primary bg-opacity-10 text-primary fs-1 rounded-circle p-4 mb-4">
+                            <i class="bi bi-person-plus-fill"></i>
+                        </div>
+                        <h2 class="fw-bold gradient-text">Create Account</h2>
+                        <p class="text-muted">Join EssayScorer AI and start assessing your essays with precision.</p>
+                    </div>
+
+                    <form action="{% url 'UserRegisterActions' %}" method="POST" class="row g-4">
+                        {% csrf_token %}
+                        
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Full Name</label>
+                            {{ form.name }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Login ID</label>
+                            {{ form.loginid }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Password</label>
+                            {{ form.password }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Mobile Number</label>
+                            {{ form.mobile }}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Email Address</label>
+                            {{ form.email }}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Locality</label>
+                            {{ form.locality }}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="form-label text-muted small text-uppercase fw-bold">Complete Address</label>
+                            {{ form.address }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small text-uppercase fw-bold">City</label>
+                            {{ form.city }}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-muted small text-uppercase fw-bold">State</label>
+                            {{ form.state }}
+                        </div>
+
+                        <div style="display:none;">
+                            {{ form.status }}
+                        </div>
+
+                        <div class="col-12 text-center mt-5">
+                            <button type="submit" class="btn btn-premium btn-lg px-5">Register Account</button>
+                            <div class="mt-4">
+                                <span class="text-muted small">Already have an account?</span>
+                                <a href="{% url 'UserLogin' %}" class="text-primary small fw-bold text-decoration-none ms-1">Sign In</a>
+                            </div>
+                        </div>
+
+                        {% if messages %}
+                        <div class="col-12 mt-4">
+                            {% for message in messages %}
+                            <div class="alert alert-danger bg-opacity-10 border-0 text-danger py-2 px-3 small rounded-3 text-center">
+                                <i class="bi bi-exclamation-circle-fill me-2"></i> {{ message }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Targeting Django form widgets - Professional Bright */
+    form input, form select, form textarea {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--text-main);
+        background-color: #ffffff;
+        background-clip: padding-box;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+        background-color: #ffffff;
+        border-color: var(--primary);
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(37, 99, 235, 0.15);
+    }
+    
+    ::placeholder {
+        color: #94a3b8 !important;
+    }
+</style>
+{% endblock %}

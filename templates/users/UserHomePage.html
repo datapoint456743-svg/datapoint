@@ -1,0 +1,89 @@
+{% extends 'users/userbase.html'%}
+{% block contents %}
+<div class="row justify-content-center">
+    <div class="col-lg-11">
+        <div class="glass-card p-5 mb-5 animate-fade-in" style="background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,249,255,0.9) 100%);">
+            <div class="row align-items-center g-5">
+                <div class="col-md-7">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3 fw-bold">PORTAL STATUS: SECURE</span>
+                    <h1 class="display-5 fw-extrabold text-main mb-3">Welcome to your <span class="gradient-text">EssayScorer Workspace</span></h1>
+                    <p class="text-muted fs-5 mb-4">You have full access to our neural scoring engine, training datasets, and performance analytics. Start your next assessment today.</p>
+                    <div class="d-flex gap-3">
+                        <a href="{% url 'prediction' %}" class="btn btn-premium px-4 py-3 rounded-4">
+                            <i class="bi bi-rocket-takeoff me-2"></i>New Assessment
+                        </a>
+                        <a href="{% url 'DatasetView' %}" class="btn btn-outline-secondary px-4 py-3 rounded-4">
+                            <i class="bi bi-database me-2"></i>Explore Dataset
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="p-4 rounded-5 bg-white shadow-xl position-relative overflow-hidden">
+                        <div class="position-absolute top-0 end-0 p-3 opacity-10">
+                            <i class="bi bi-cpu display-1"></i>
+                        </div>
+                        <h5 class="fw-bold mb-4">Recent Activity</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="d-flex align-items-center mb-4">
+                                <span class="bg-success bg-opacity-10 text-success p-2 rounded-3 me-3"><i class="bi bi-check2-circle"></i></span>
+                                <div>
+                                    <div class="fw-bold small">System Analysis v2.5</div>
+                                    <div class="text-muted smallest">Score: 8.4/10 • Oct 12</div>
+                                </div>
+                            </li>
+                            <li class="d-flex align-items-center mb-4">
+                                <span class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-3"><i class="bi bi-file-earmark-text"></i></span>
+                                <div>
+                                    <div class="fw-bold small">Dataset Sync</div>
+                                    <div class="text-muted smallest">12,430 samples verified</div>
+                                </div>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <span class="bg-info bg-opacity-10 text-info p-2 rounded-3 me-3"><i class="bi bi-shield-check"></i></span>
+                                <div>
+                                    <div class="fw-bold small">Neural Engine Ready</div>
+                                    <div class="text-muted smallest">Latency: 45ms</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 animate-fade-in" style="animation-delay: 0.2s;">
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="bg-primary bg-opacity-10 text-primary display-6 rounded-4 p-3 mb-4 mx-auto" style="width: 80px;">
+                        <i class="bi bi-magic"></i>
+                    </div>
+                    <h5 class="fw-bold">AI Scoring</h5>
+                    <p class="text-muted small">Deep neural analysis using state-of-the-art LSTM networks.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="bg-info bg-opacity-10 text-info display-6 rounded-4 p-3 mb-4 mx-auto" style="width: 80px;">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h5 class="fw-bold">OCR Discovery</h5>
+                    <p class="text-muted small">Instant digitization of handwritten and printed manuscripts.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4 text-center h-100">
+                    <div class="bg-danger bg-opacity-10 text-danger display-6 rounded-4 p-3 mb-4 mx-auto" style="width: 80px;">
+                        <i class="bi bi-mic"></i>
+                    </div>
+                    <h5 class="fw-bold">Voice Synthesis</h5>
+                    <p class="text-muted small">Hands-free essay creation with intelligent punctuation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .smallest { font-size: 0.7rem; }
+</style>
+{% endblock %}

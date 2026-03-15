@@ -1,0 +1,9 @@
+django
+pandas
+numpy
+nltk
+gensim
+tensorflow
+scikit-learn
+pillow
+pytesseract

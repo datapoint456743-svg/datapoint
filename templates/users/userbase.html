@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>User Dashboard - EssayScorer AI</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vendor CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom Premium CSS -->
+    <link href="{% static 'assets/css/premium.css' %}" rel="stylesheet">
+
+    <style>
+        .navbar-brand span {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-main) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dashboard-header {
+            padding: 80px 0 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-mesh"></div>
+    <div class="bg-dot-pattern"></div>
+    <header id="header" class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'UserHome' %}">
+                <i class="bi bi-person-circle me-2 fs-3 text-primary"></i>
+                <span>User Dashboard</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                <i class="bi bi-list fs-2 text-primary"></i>
+            </button>
+
+            <nav class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'UserHome' %}active{% endif %}" href="{% url 'UserHome' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'DatasetView' %}active{% endif %}" href="{% url 'DatasetView' %}">Dataset</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'training' %}active{% endif %}" href="{% url 'training' %}">Training</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.resolver_match.url_name == 'prediction' %}active{% endif %}" href="{% url 'prediction' %}">Predict</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-danger btn-sm rounded-pill px-3" href="{% url 'index' %}">
+                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    {% block header %}
+    <div class="container dashboard-header mt-5">
+        <div class="text-center animate-fade-in">
+            <h1 class="display-5 fw-bold gradient-text">Essay Scoring Insights</h1>
+            <p class="text-muted">Manage your submissions and analyze essay performance.</p>
+        </div>
+    </div>
+    {% endblock %}
+
+    <main class="container py-4">
+        <div class="row">
+            <div class="col-12">
+                {% block contents %}
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-5 mt-5">
+        <div class="container text-center text-muted border-top pt-4">
+            <p>&copy; 2026 EssayScorer AI Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Speech Recognition Integration
+        let recognition;
+        function startSpeech() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert("Speech recognition is not supported in this browser. Please use Chrome.");
+                return;
+            }
+            recognition = new SpeechRecognition();
+            recognition.lang = "en-US";
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onresult = function(event) {
+                let transcript = "";
+                for (let i = 0; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                const textbox = document.getElementById("output");
+                if (textbox) textbox.value = transcript;
+            };
+            recognition.start();
+        }
+        function stopSpeech() {
+            if (recognition) recognition.stop();
+        }
+    </script>
+</body>
+</html>

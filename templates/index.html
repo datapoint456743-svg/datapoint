@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+<div class="bg-mesh"></div>
+
+<section id="hero" class="hero-gradient d-flex align-items-center min-vh-100">
+    <div class="container">
+        <div class="row gy-5 align-items-center">
+            <div class="col-lg-12 text-center animate-fade-in" style="animation-delay: 0.2s;">
+                <div class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-4 d-inline-block border border-primary border-opacity-25">
+                    <i class="bi bi-stars me-2"></i>Next-Gen AI Technology
+                </div>
+                <h1 class="display-1 fw-extrabold mb-4 gradient-text">Elevate Your <span class="text-primary">Writing</span> Excellence.</h1>
+                <p class="fs-4 text-muted mb-5 leading-relaxed mx-auto" style="max-width: 800px;">Instant, high-fidelity essay scoring powered by advanced Neural Networks. Unlock deep stylistic insights in seconds.</p>
+                <div class="d-flex flex-wrap gap-4 justify-content-center">
+                    <a href="{% url 'UserRegister' %}" class="btn btn-premium btn-lg fs-5 px-5 py-3">Register Now</a>
+                    <a href="#features" class="btn btn-outline-primary btn-lg fs-5 px-5 py-3 rounded-pill">
+                        <span>Explore Features</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="features" class="py-5 position-relative">
+    <div class="container py-5">
+        <div class="text-center mb-5 animate-fade-in">
+            <h2 class="display-3 fw-bold gradient-text">Unrivaled Intelligence</h2>
+            <p class="text-muted fs-5">Our multi-layered analysis engine goes beyond simple grammar checks.</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Feature 1 -->
+            <div class="col-md-4 animate-fade-in" style="animation-delay: 0.6s;">
+                <div class="glass-card p-5 h-100 border-opacity-10">
+                    <div class="feature-icon bg-primary bg-opacity-10 text-primary fs-2 rounded-3 p-3 d-inline-block mb-4 shadow-sm">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                    <h3 class="h3 fw-bold mb-3">Neural LSTM Scoring</h3>
+                    <p class="text-muted fs-6">Deep learning models that understand context, flow, and semantic depth of your arguments.</p>
+                </div>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="col-md-4 animate-fade-in" style="animation-delay: 0.8s;">
+                <div class="glass-card p-5 h-100 border-opacity-10">
+                    <div class="feature-icon bg-primary bg-opacity-10 text-primary fs-2 rounded-3 p-3 d-inline-block mb-4 shadow-sm">
+                        <i class="bi bi-vector-pen"></i>
+                    </div>
+                    <h3 class="h3 fw-bold mb-3">Semantic Word2Vec</h3>
+                    <p class="text-muted fs-6">Rich vocabulary mapping and word embedding to assess the lexical sophistication of your writing.</p>
+                </div>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="col-md-4 animate-fade-in" style="animation-delay: 1s;">
+                <div class="glass-card p-5 h-100 border-opacity-10">
+                    <div class="feature-icon bg-primary bg-opacity-10 text-primary fs-2 rounded-3 p-3 d-inline-block mb-4 shadow-sm">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <h3 class="h3 fw-bold mb-3">Real-Time Synthesis</h3>
+                    <p class="text-muted fs-6">Experience the future of assessment with near-instant scoring delivery across all devices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .fw-extrabold { font-weight: 900; }
+    .leading-relaxed { line-height: 1.6; }
+    .shadow-2xl { filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5)); }
+    .blur-3xl { filter: blur(64px); }
+    
+    .floating-img {
+        animation: floatPremium 6s ease-in-out infinite;
+    }
+
+    @keyframes floatPremium {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-30px) rotate(1deg); }
+    }
+    
+    .group:hover i {
+        transform: translateY(5px);
+    }
+</style>
+{% endblock %}
