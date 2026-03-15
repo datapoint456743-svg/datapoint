@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: datapoint
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn Automatic_English_Essay_Scoring_Algorithm_B.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.13
