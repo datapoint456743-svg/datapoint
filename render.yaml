@@ -4,7 +4,9 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn Automatic_English_Essay_Scoring_Algorithm_B.wsgi:application
+    startCommand: gunicorn --timeout 120 Automatic_English_Essay_Scoring_Algorithm_B.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
+      - key: MODEL_PATH
+        value: "/path/to/your/model"  # Path to your trained model
