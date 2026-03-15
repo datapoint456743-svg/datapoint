@@ -9,8 +9,7 @@ import numpy as np
 import re
 
 from nltk.corpus import stopwords
-from gensim.models import Word2Vec
-from gensim.models import KeyedVectors
+from gensim.models import Word2Vec, KeyedVectors
 
 from tensorflow.keras.models import Sequential, load_model
 from tensorflow.keras.layers import LSTM, Dense, Dropout
@@ -24,8 +23,32 @@ from pytesseract import TesseractNotFoundError
 
 
 # =========================
+# LOAD ML MODELS (SAFE)
+# =========================
+
+word2vec_model = None
+lstm_model = None
+
+
+def load_models():
+
+    global word2vec_model
+    global lstm_model
+
+    if word2vec_model is None:
+        word2vec_model = KeyedVectors.load_word2vec_format(
+            "word2vecmodel.bin",
+            binary=True
+        )
+
+    if lstm_model is None:
+        lstm_model = load_model("final_lstm.h5")
+
+
+# =========================
 # USER REGISTRATION
 # =========================
+
 def UserRegisterActions(request):
 
     if request.method == 'POST':
@@ -52,6 +75,7 @@ def UserRegisterActions(request):
 # =========================
 # LOGIN
 # =========================
+
 def UserLoginCheck(request):
 
     if request.method == "POST":
@@ -88,6 +112,7 @@ def UserLoginCheck(request):
 # =========================
 # USER HOME
 # =========================
+
 def UserHome(request):
 
     return render(request, 'users/UserHomePage.html')
@@ -96,6 +121,7 @@ def UserHome(request):
 # =========================
 # DATASET VIEW
 # =========================
+
 def DatasetView(request):
 
     df = pd.read_csv(
@@ -109,13 +135,14 @@ def DatasetView(request):
     return render(
         request,
         'users/viewdataset.html',
-        {'data': df}
+        {'data': df.to_html()}
     )
 
 
 # =========================
 # TRAINING
 # =========================
+
 def training(request):
 
     df = pd.read_csv(
@@ -135,10 +162,7 @@ def training(request):
     X = df['essay']
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.3,
-        random_state=42
+        X, y, test_size=0.3, random_state=42
     )
 
     stop_words = set(stopwords.words('english'))
@@ -153,11 +177,9 @@ def training(request):
     train_words = [clean(e) for e in X_train]
     test_words = [clean(e) for e in X_test]
 
-    # =========================
     # WORD2VEC
-    # =========================
 
-    word2vec_model = Word2Vec(
+    word2vec = Word2Vec(
         train_words,
         vector_size=300,
         window=10,
@@ -165,7 +187,7 @@ def training(request):
         workers=4
     )
 
-    word2vec_model.wv.save_word2vec_format(
+    word2vec.wv.save_word2vec_format(
         "word2vecmodel.bin",
         binary=True
     )
@@ -186,15 +208,13 @@ def training(request):
 
         return vec
 
-    train_vec = np.array([makeVec(w, word2vec_model) for w in train_words])
-    test_vec = np.array([makeVec(w, word2vec_model) for w in test_words])
+    train_vec = np.array([makeVec(w, word2vec) for w in train_words])
+    test_vec = np.array([makeVec(w, word2vec) for w in test_words])
 
     train_vec = train_vec.reshape(train_vec.shape[0], 1, 300)
     test_vec = test_vec.reshape(test_vec.shape[0], 1, 300)
 
-    # =========================
     # LSTM MODEL
-    # =========================
 
     model = Sequential()
 
@@ -234,21 +254,12 @@ def training(request):
 
 
 # =========================
-# LOAD TRAINED MODELS
-# =========================
-
-word2vec_model = KeyedVectors.load_word2vec_format(
-    "word2vecmodel.bin",
-    binary=True
-)
-
-lstm_model = load_model("final_lstm.h5")
-
-
-# =========================
 # PREDICTION
 # =========================
+
 def prediction(request):
+
+    load_models()  # IMPORTANT
 
     score = None
 
@@ -258,21 +269,20 @@ def prediction(request):
         image_file = request.FILES.get("essay_image")
 
         # OCR
+
         if image_file:
+
             try:
+
                 img = Image.open(image_file)
                 final_text = pytesseract.image_to_string(img)
+
             except TesseractNotFoundError:
+
                 return render(
                     request,
                     "users/predictForm.html",
-                    {"score": "OCR Error: Tesseract is not installed or not in PATH. Please enter text manually."}
-                )
-            except Exception as e:
-                return render(
-                    request,
-                    "users/predictForm.html",
-                    {"score": f"OCR Error: {str(e)}"}
+                    {"score": "Tesseract OCR not installed"}
                 )
 
         if not final_text:
@@ -312,10 +322,8 @@ def prediction(request):
 
             score = str(round(float(pred[0][0])))
 
-        return render(
-            request,
-            "users/predictForm.html",
-            {"score": score}
-        )
-
-    return render(request, "users/predictForm.html")
+    return render(
+        request,
+        "users/predictForm.html",
+        {"score": score}
+    )
