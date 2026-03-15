@@ -8,3 +8,6 @@ gensim
 scipy
 tensorflow-cpu
 scikit-learn
+Pillow
+joblib
+h5py
