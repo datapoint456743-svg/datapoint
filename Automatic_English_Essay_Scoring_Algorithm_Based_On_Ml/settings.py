@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-!!t7r_3hu(9m7sp6@(f5ie(u-9num2w^+vp--(gu3)pyh(lh1!
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['datapoint-15.onrender.com', '*']
+ALLOWED_HOSTS = ['datapoint-16.onrender.com', '*']
 
 
 # APPLICATIONS
