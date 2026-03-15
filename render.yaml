@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: datapoint
+    name: datapoint-2
     env: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
+    plan: free  # Or choose a paid plan based on your resource requirements
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
     startCommand: gunicorn --timeout 120 Automatic_English_Essay_Scoring_Algorithm_B.wsgi:application
     envVars:
       - key: PYTHON_VERSION
         value: 3.10.13
       - key: MODEL_PATH
-        value: "/path/to/your/model"  # Path to your trained model
+        value: "/path/to/your/model"  # Make sure to update with the correct path to your model
