@@ -9,7 +9,7 @@ joblib==1.3.2
 nltk==3.8.1
 gensim==4.3.2
 smart-open==6.4.0
-tensorflow-cpu==2.12.0
+tensorflow-cpu==2.12.0  # Or use tensorflow-gpu if you're using GPU
 keras==2.12.0
 h5py==3.8.0
 Pillow==10.2.0
