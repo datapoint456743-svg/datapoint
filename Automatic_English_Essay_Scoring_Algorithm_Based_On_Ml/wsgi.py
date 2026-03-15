@@ -1,6 +1,11 @@
 import os
+import logging
 from django.core.wsgi import get_wsgi_application
 import tensorflow as tf
+
+# Set up logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # Set the Django settings module
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Automatic_English_Essay_Scoring_Algorithm_Based_On_Ml.settings')
@@ -19,10 +24,16 @@ def load_model():
         
         # Check if the model exists at the given path
         if not os.path.exists(model_path):
+            logger.error(f"Model not found at {model_path}")  # Log error if model is missing
             raise FileNotFoundError(f"Model not found at {model_path}")  # Raise an error if model is missing
         
-        model = tf.keras.models.load_model(model_path)  # Load the model
-        print(f"Model loaded from {model_path}")  # Optional: print a message indicating model loading
+        # Load the model
+        try:
+            model = tf.keras.models.load_model(model_path)
+            logger.info(f"Model loaded successfully from {model_path}")  # Log success message
+        except Exception as e:
+            logger.error(f"Error loading model from {model_path}: {e}")
+            raise RuntimeError(f"Error loading model: {e}")
     return model
 
 # Enable memory growth if using a GPU (Optional, only if you have a GPU available)
@@ -30,8 +41,8 @@ physical_devices = tf.config.list_physical_devices('GPU')
 if physical_devices:
     try:
         tf.config.set_memory_growth(physical_devices[0], True)  # Set memory growth for GPU
-        print("Memory growth set for GPU.")
+        logger.info("Memory growth set for GPU.")
     except RuntimeError as e:
-        print(f"Error while setting memory growth: {e}")
+        logger.error(f"Error while setting memory growth: {e}")
 
 # Optional: If using CPU only, you may skip the above GPU setup but ensure the model loads properly
