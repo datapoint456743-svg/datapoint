@@ -1,0 +1,7 @@
+django
+gunicorn
+pandas
+numpy
+nltk
+gensim
+tensorflow-cpu
